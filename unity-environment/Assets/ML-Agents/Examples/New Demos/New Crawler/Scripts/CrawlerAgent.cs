@@ -15,8 +15,12 @@ public class CrawlerAgent : Agent {
     public Transform leg3_upper;
     public Transform leg3_lower;
     public Dictionary<Transform, BodyPart> bodyParts = new Dictionary<Transform, BodyPart>();
+	// public bool useMoveTowardTargetRewardFunction;
 
-
+	// enum RewardFunctions
+	// {
+	// 	walkTowardsDir
+	// }
 
     /// <summary>
     /// Used to store relevant information for acting and learning for each body part in agent.
