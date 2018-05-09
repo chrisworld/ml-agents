@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class GroundContact : MonoBehaviour
 {
+    [HideInInspector]
     public Agent agent;
     public float contactPenalty;
     public bool touchingGround;
