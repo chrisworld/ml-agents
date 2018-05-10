@@ -143,6 +143,7 @@ public class CrawlerAgent : Agent {
         // AddVectorObs(dirToTarget);
         AddVectorObs(body.forward);
         AddVectorObs(body.up);
+        // AddVectorObs(body.position.y);
 		
         foreach (var bodyPart in bodyParts.Values)
         {
