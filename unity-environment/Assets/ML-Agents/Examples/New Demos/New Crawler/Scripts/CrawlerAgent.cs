@@ -16,7 +16,7 @@ public class CrawlerAgent : Agent {
     public Transform leg3_lower;
     public Dictionary<Transform, BodyPart> bodyParts = new Dictionary<Transform, BodyPart>();
 	public Vector3 dirToTarget;
-	Academy academy;
+	CrawlerAcademy academy;
 	// public bool useMoveTowardTargetRewardFunction;
 
 	// enum RewardFunctions
@@ -89,7 +89,7 @@ public class CrawlerAgent : Agent {
     }
     public override void InitializeAgent()
     {
-		academy = FindObjectOfType<Academy>();
+		academy = FindObjectOfType<CrawlerAcademy>();
         SetupBodyPart(body);
         SetupBodyPart(leg0_upper);
         SetupBodyPart(leg0_lower);
@@ -138,18 +138,26 @@ public class CrawlerAgent : Agent {
     public override void CollectObservations()
     {
         // AddVectorObs(goalDirection);
-		// dirToTarget = target.position - body.position;
-        AddVectorObs(goalDirection);
-        // AddVectorObs(dirToTarget);
+        // AddVectorObs(goalDirection);
+		dirToTarget = academy.target.position - bodyParts[body].rb.position;
+        AddVectorObs(dirToTarget);
         AddVectorObs(body.forward);
         AddVectorObs(body.up);
-        // AddVectorObs(body.position.y);
+        AddVectorObs(body.position.y);
 		
         foreach (var bodyPart in bodyParts.Values)
         {
             CollectObservationBodyPart(bodyPart);
         }
     }
+
+	public void TouchedTarget()
+	{
+		SetReward(1);
+		academy.GetRandomTargetPos();
+
+		Done();
+	}
 
 	 public override void AgentAction(float[] vectorAction, string textAction)
     {
@@ -170,10 +178,10 @@ public class CrawlerAgent : Agent {
         // c. Encourage head height.
         // d. Discourage head movement.
         AddReward(
-            // + 0.03f * Vector3.Dot(dirToTarget, bodyParts[body].rb.velocity)
-            // + 0.01f * Vector3.Dot(dirToTarget, body.forward)
-            + 0.03f * Vector3.Dot(goalDirection, bodyParts[body].rb.velocity)
-            + 0.01f * Vector3.Dot(goalDirection, body.forward)
+            + 0.03f * Vector3.Dot(dirToTarget.normalized, bodyParts[body].rb.velocity)
+            + 0.01f * Vector3.Dot(dirToTarget.normalized, body.forward)
+            // + 0.03f * Vector3.Dot(goalDirection, bodyParts[body].rb.velocity)
+            // + 0.01f * Vector3.Dot(goalDirection, body.forward)
             // + 0.01f * (head.position.y - hips.position.y)
             // - 0.01f * Vector3.Distance(bodyParts[head].rb.velocity, bodyParts[hips].rb.velocity)
         );

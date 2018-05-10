@@ -34,10 +34,17 @@ public class GroundContact : MonoBehaviour
             touchingGround = true;
             if (penalizeOnContact)
             {
-                agent.Done();
                 agent.SetReward(contactPenalty);
+                agent.Done();
             }
         }
+        if (other.transform.CompareTag("crawlerTarget"))
+        {
+            print("touched target");
+            agent.GetComponent<CrawlerAgent>().TouchedTarget();
+            // agent.TouchedTarget();
+        }
+
     }
 
     /// <summary>

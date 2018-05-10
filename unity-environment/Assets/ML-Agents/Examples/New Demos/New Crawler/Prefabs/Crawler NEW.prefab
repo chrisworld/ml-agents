@@ -886,6 +886,7 @@ MonoBehaviour:
   leg2_lower: {fileID: 4156658283067344}
   leg3_upper: {fileID: 4896450596050228}
   leg3_lower: {fileID: 4929905072286608}
+  dirToTarget: {x: 0, y: 0, z: 0}
 --- !u!114 &114127781095147976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -943,7 +944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  contactPenalty: 1
+  contactPenalty: -1
   touchingGround: 0
   penalizeOnContact: 1
 --- !u!114 &114689334548721632
