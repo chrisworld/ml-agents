@@ -140,7 +140,7 @@ public class CrawlerAgent : Agent {
         // AddVectorObs(goalDirection);
 		// dirToTarget = target.position - body.position;
         AddVectorObs(goalDirection);
-        AddVectorObs(dirToTarget);
+        // AddVectorObs(dirToTarget);
         AddVectorObs(body.forward);
         AddVectorObs(body.up);
 		
