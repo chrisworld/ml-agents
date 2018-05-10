@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CrawlerAcademy : Academy
 {
+    public float targetSpawnRadius;
+    public Transform target;
+
     public override void InitializeAcademy()
     {
         Monitor.verticalOffset = 1f;

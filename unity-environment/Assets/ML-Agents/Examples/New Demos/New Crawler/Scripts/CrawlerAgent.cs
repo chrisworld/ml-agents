@@ -15,6 +15,8 @@ public class CrawlerAgent : Agent {
     public Transform leg3_upper;
     public Transform leg3_lower;
     public Dictionary<Transform, BodyPart> bodyParts = new Dictionary<Transform, BodyPart>();
+	public Vector3 dirToTarget;
+	Academy academy;
 	// public bool useMoveTowardTargetRewardFunction;
 
 	// enum RewardFunctions
@@ -87,6 +89,7 @@ public class CrawlerAgent : Agent {
     }
     public override void InitializeAgent()
     {
+		academy = FindObjectOfType<Academy>();
         SetupBodyPart(body);
         SetupBodyPart(leg0_upper);
         SetupBodyPart(leg0_lower);
@@ -134,7 +137,10 @@ public class CrawlerAgent : Agent {
     /// </summary>
     public override void CollectObservations()
     {
+        // AddVectorObs(goalDirection);
+		// dirToTarget = target.position - body.position;
         AddVectorObs(goalDirection);
+        AddVectorObs(dirToTarget);
         AddVectorObs(body.forward);
         AddVectorObs(body.up);
 		
@@ -163,6 +169,8 @@ public class CrawlerAgent : Agent {
         // c. Encourage head height.
         // d. Discourage head movement.
         AddReward(
+            // + 0.03f * Vector3.Dot(dirToTarget, bodyParts[body].rb.velocity)
+            // + 0.01f * Vector3.Dot(dirToTarget, body.forward)
             + 0.03f * Vector3.Dot(goalDirection, bodyParts[body].rb.velocity)
             + 0.01f * Vector3.Dot(goalDirection, body.forward)
             // + 0.01f * (head.position.y - hips.position.y)
