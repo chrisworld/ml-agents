@@ -19,7 +19,9 @@ public class CrawlerAgent : Agent {
 	CrawlerAcademy academy;
 	public float movingTowardsDot;
 	public float facingDot;
-	public float prevDistSqrMag;
+	// public float prevDistSqrMag;
+	public float maxJointSpring;
+	public float maxJointForceLimit;
 	// public bool useMoveTowardTargetRewardFunction;
 
 	// enum RewardFunctions
@@ -38,6 +40,7 @@ public class CrawlerAgent : Agent {
         public Vector3 startingPos;
         public Quaternion startingRot;
         public GroundContact groundContact;
+		public CrawlerAgent agent;
 
         /// <summary>
         /// Reset body part to initial configuration.
@@ -68,8 +71,10 @@ public class CrawlerAgent : Agent {
             joint.targetRotation = Quaternion.Euler(xRot, yRot, zRot);
             var jd = new JointDrive
             {
-                positionSpring = ((strength + 1f) * 0.5f) * 10000f,
-                maximumForce = 250000f
+                // positionSpring = ((strength + 1f) * 0.5f) * 10000f,
+                positionSpring = ((strength + 1f) * 0.5f) * agent.maxJointSpring,
+                maximumForce = agent.maxJointForceLimit
+                // maximumForce = 250000f
             };
             joint.slerpDrive = jd;
         }
@@ -88,8 +93,10 @@ public class CrawlerAgent : Agent {
             startingPos = t.position,
             startingRot = t.rotation
         };
+		bp.rb.maxAngularVelocity = 100;
         bodyParts.Add(t, bp);
         bp.groundContact = t.GetComponent<GroundContact>();
+		bp.agent = this;
     }
     public override void InitializeAgent()
     {
@@ -192,7 +199,7 @@ public class CrawlerAgent : Agent {
 		// movingTowardsDot = Vector3.Dot(dirToTarget.normalized, bodyParts[body].rb.velocity.normalized);
 
 
-		movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized);
+		movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized); //don't normalize vel. the faster it goes the more reward it should get
 		facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
 		// float currentSqrMag = dirToTarget.sqrMagnitude;
 		// float closerReward = 0;
