@@ -17,6 +17,9 @@ public class CrawlerAgent : Agent {
     public Dictionary<Transform, BodyPart> bodyParts = new Dictionary<Transform, BodyPart>();
 	public Vector3 dirToTarget;
 	CrawlerAcademy academy;
+	public float movingTowardsDot;
+	public float facingDot;
+	public float prevDistSqrMag;
 	// public bool useMoveTowardTargetRewardFunction;
 
 	// enum RewardFunctions
@@ -45,6 +48,7 @@ public class CrawlerAgent : Agent {
             rb.transform.rotation = startingRot;
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+			groundContact.touchingGround = false;;
         }
         
         /// <summary>
@@ -117,7 +121,7 @@ public class CrawlerAgent : Agent {
     {
         var rb = bp.rb;
         AddVectorObs(bp.groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
-        bp.groundContact.touchingGround = false;
+        // bp.groundContact.touchingGround = false;
 
         AddVectorObs(rb.velocity);
         AddVectorObs(rb.angularVelocity);
@@ -137,13 +141,19 @@ public class CrawlerAgent : Agent {
     /// </summary>
     public override void CollectObservations()
     {
-        // AddVectorObs(goalDirection);
-        // AddVectorObs(goalDirection);
 		dirToTarget = academy.target.position - bodyParts[body].rb.position;
+		// dirToTarget.Normalize();
         AddVectorObs(dirToTarget);
-        AddVectorObs(body.forward);
-        AddVectorObs(body.up);
-        AddVectorObs(body.position.y);
+        AddVectorObs(bodyParts[body].rb.rotation);
+		// print(bodyParts[body].rb.rotation);
+        AddVectorObs(Vector3.Dot(dirToTarget.normalized, body.forward)); //are we facing the target?
+        // AddVectorObs(body.position.y);
+        // AddVectorObs(body.forward);
+        // AddVectorObs(body.up);
+
+        // AddVectorObs(goalDirection);
+        // AddVectorObs(body.forward);
+        // AddVectorObs(body.up);
 		
         foreach (var bodyPart in bodyParts.Values)
         {
@@ -153,7 +163,7 @@ public class CrawlerAgent : Agent {
 
 	public void TouchedTarget()
 	{
-		SetReward(1);
+		AddReward(1);
 		academy.GetRandomTargetPos();
 
 		Done();
@@ -177,14 +187,38 @@ public class CrawlerAgent : Agent {
         // b. Rotation alignment with goal direction.
         // c. Encourage head height.
         // d. Discourage head movement.
+		// movingTowardsDot = Vector3.Dot(dirToTarget, bodyParts[body].rb.velocity);
+		// movingTowardsDot = Vector3.Dot(dirToTarget, bodyParts[body].rb.velocity);
+		// movingTowardsDot = Vector3.Dot(dirToTarget.normalized, bodyParts[body].rb.velocity.normalized);
+
+
+		movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized);
+		facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
+		// float currentSqrMag = dirToTarget.sqrMagnitude;
+		// float closerReward = 0;
+		// if(currentSqrMag < prevDistSqrMag) //getting closer
+		// {
+		// 	closerReward = .03f;
+		// 	// AddReward(.03f);
+		// 	// print("closer");
+		// }
+		// else
+		// {
+		// 	closerReward = -.03f;
+		// 	// AddReward(-.03f);
+		// }
+
         AddReward(
-            + 0.03f * Vector3.Dot(dirToTarget.normalized, bodyParts[body].rb.velocity)
-            + 0.01f * Vector3.Dot(dirToTarget.normalized, body.forward)
+            + 0.03f * movingTowardsDot
+            + 0.01f * facingDot
+			// + closerReward
             // + 0.03f * Vector3.Dot(goalDirection, bodyParts[body].rb.velocity)
             // + 0.01f * Vector3.Dot(goalDirection, body.forward)
             // + 0.01f * (head.position.y - hips.position.y)
             // - 0.01f * Vector3.Distance(bodyParts[head].rb.velocity, bodyParts[hips].rb.velocity)
         );
+		// prevDistSqrMag = currentSqrMag;
+		// print(this.gameObject.name + " reward: " + GetReward());
     }
 	
 
