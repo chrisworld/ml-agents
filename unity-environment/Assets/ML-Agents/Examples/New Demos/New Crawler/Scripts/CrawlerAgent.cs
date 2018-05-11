@@ -21,7 +21,9 @@ public class CrawlerAgent : Agent {
 	public float facingDot;
 	// public float prevDistSqrMag;
 	public float maxJointSpring;
+	public float jointDampen;
 	public float maxJointForceLimit;
+	public Vector3 footCenterOfMassShift;
 	// public bool useMoveTowardTargetRewardFunction;
 
 	// enum RewardFunctions
@@ -73,7 +75,8 @@ public class CrawlerAgent : Agent {
             {
                 // positionSpring = ((strength + 1f) * 0.5f) * 10000f,
                 positionSpring = ((strength + 1f) * 0.5f) * agent.maxJointSpring,
-                maximumForce = agent.maxJointForceLimit
+                maximumForce = agent.maxJointForceLimit,
+				positionDamper = agent.jointDampen
                 // maximumForce = 250000f
             };
             joint.slerpDrive = jd;
@@ -110,6 +113,10 @@ public class CrawlerAgent : Agent {
         SetupBodyPart(leg2_lower);
         SetupBodyPart(leg3_upper);
         SetupBodyPart(leg3_lower);
+		bodyParts[leg0_lower].rb.centerOfMass = footCenterOfMassShift;
+		bodyParts[leg1_lower].rb.centerOfMass = footCenterOfMassShift;
+		bodyParts[leg2_lower].rb.centerOfMass = footCenterOfMassShift;
+		bodyParts[leg3_lower].rb.centerOfMass = footCenterOfMassShift;
     }
 
     /// <summary>
@@ -154,6 +161,7 @@ public class CrawlerAgent : Agent {
         AddVectorObs(bodyParts[body].rb.rotation);
 		// print(bodyParts[body].rb.rotation);
         AddVectorObs(Vector3.Dot(dirToTarget.normalized, body.forward)); //are we facing the target?
+        AddVectorObs(Vector3.Dot(bodyParts[body].rb.velocity.normalized, dirToTarget.normalized)); //are we moving towards or away from target?
         // AddVectorObs(body.position.y);
         // AddVectorObs(body.forward);
         // AddVectorObs(body.up);
@@ -178,6 +186,8 @@ public class CrawlerAgent : Agent {
 
 	 public override void AgentAction(float[] vectorAction, string textAction)
     {
+
+		// Debug.DrawRay(bodyParts[leg0_lower].rb.worldCenterOfMass, Vector3.up, Color.red);
         // Apply action to all relevant body parts. 
         
         bodyParts[leg0_upper].SetNormalizedTargetRotation(vectorAction[0], vectorAction[1], 0, vectorAction[2]);
@@ -200,7 +210,7 @@ public class CrawlerAgent : Agent {
 
 
 		movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized); //don't normalize vel. the faster it goes the more reward it should get
-		facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
+		// facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
 		// float currentSqrMag = dirToTarget.sqrMagnitude;
 		// float closerReward = 0;
 		// if(currentSqrMag < prevDistSqrMag) //getting closer
@@ -217,7 +227,7 @@ public class CrawlerAgent : Agent {
 
         AddReward(
             + 0.03f * movingTowardsDot
-            + 0.01f * facingDot
+            // + 0.01f * facingDot
 			// + closerReward
             // + 0.03f * Vector3.Dot(goalDirection, bodyParts[body].rb.velocity)
             // + 0.01f * Vector3.Dot(goalDirection, body.forward)
