@@ -75,8 +75,9 @@ public class CrawlerAgent : Agent {
             {
                 // positionSpring = ((strength + 1f) * 0.5f) * 10000f,
                 positionSpring = ((strength + 1f) * 0.5f) * agent.maxJointSpring,
-                maximumForce = agent.maxJointForceLimit,
-				positionDamper = agent.jointDampen
+				// positionDamper = agent.maxJointSpring * .075f, //chosen via experimentation
+				positionDamper = agent.jointDampen,
+                maximumForce = agent.maxJointForceLimit
                 // maximumForce = 250000f
             };
             joint.slerpDrive = jd;
@@ -176,9 +177,10 @@ public class CrawlerAgent : Agent {
         }
     }
 
-	public void TouchedTarget()
+	public void TouchedTarget(float impactForce)
 	{
-		AddReward(1);
+		AddReward(.01f * impactForce);
+		// AddReward(1);
 		academy.GetRandomTargetPos();
 
 		Done();
@@ -227,6 +229,7 @@ public class CrawlerAgent : Agent {
 
         AddReward(
             + 0.03f * movingTowardsDot
+			- 0.001f //hurry up
             // + 0.01f * facingDot
 			// + closerReward
             // + 0.03f * Vector3.Dot(goalDirection, bodyParts[body].rb.velocity)

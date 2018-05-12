@@ -44,7 +44,8 @@ public class GroundContact : MonoBehaviour
         if (other.transform.CompareTag("crawlerTarget"))
         {
             print("touched target");
-            agent.GetComponent<CrawlerAgent>().TouchedTarget();
+            agent.GetComponent<CrawlerAgent>().TouchedTarget(other.relativeVelocity.sqrMagnitude);
+            // agent.GetComponent<CrawlerAgent>().TouchedTarget();
             // agent.TouchedTarget();
         }
 
