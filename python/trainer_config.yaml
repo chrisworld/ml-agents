@@ -122,7 +122,7 @@ CrawlerBrain:
 DogBrain:
     normalize: true
     num_epoch: 3
-    time_horizon: 1000
+    time_horizon: 256
     # learning_rate: .0001
     batch_size: 2048
     buffer_size: 20480

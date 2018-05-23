@@ -31,7 +31,7 @@ public class DogAgent : Agent {
 	public float jointDampen;
 	public float maxJointForceLimit;
 	public Vector3 footCenterOfMassShift; //used to shift the centerOfMass on the feet so the agent isn't so top heavy
-	Vector3 dirToTarget;
+	public Vector3 dirToTarget;
 	float movingTowardsDot;
 	float facingDot;
 
@@ -52,7 +52,8 @@ public class DogAgent : Agent {
     public MeshRenderer foot3;
     public Material groundedMaterial;
     public Material unGroundedMaterial;
-
+    List<Rigidbody> allRBs = new List<Rigidbody>();
+    // Vector3 currentAvgCoM;
 
     /// <summary>
     /// Used to store relevant information for acting and learning for each body part in agent.
@@ -142,6 +143,9 @@ public class DogAgent : Agent {
 		bodyParts[leg1_lower].rb.centerOfMass = footCenterOfMassShift;
 		bodyParts[leg2_lower].rb.centerOfMass = footCenterOfMassShift;
 		bodyParts[leg3_lower].rb.centerOfMass = footCenterOfMassShift;
+
+
+        allRBs.AddRange(gameObject.GetComponentsInChildren<Rigidbody>());
     }
 
 
@@ -153,14 +157,17 @@ public class DogAgent : Agent {
         var rb = bp.rb;
         AddVectorObs(bp.groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
 
-        AddVectorObs(rb.velocity);
-        AddVectorObs(rb.angularVelocity);
+        // AddVectorObs(rb.velocity);
+        // AddVectorObs(rb.angularVelocity);
         Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
         AddVectorObs(localPosRelToBody);
 
         if(bp.rb.transform != body)
         {
-            AddVectorObs(Quaternion.FromToRotation(body.forward, bp.rb.transform.forward));
+            // AddVectorObs(body.localRotation); //the capsule is rotated so this is local forward
+
+            // // AddVectorObs(Quaternion.FromToRotation(body.forward, bp.rb.transform.forward));
+            AddVectorObs(Quaternion.FromToRotation(body.up, bp.rb.transform.forward));  //up is local forward because capsule is rotated
         }
     }
 
@@ -211,6 +218,11 @@ public class DogAgent : Agent {
         //normalize dir vector to help generalize
         AddVectorObs(dirToTarget.normalized);
 
+
+        AddVectorObs(bodyParts[body].rb.velocity);
+        AddVectorObs(bodyParts[body].rb.angularVelocity);
+        // AddVectorObs(GetAvgCenterOfMassForAllRBs());
+
         //raycast out of the bottom of the legs to get information about where the ground is
         RaycastObservation(leg0_lower.position, leg0_lower.up, 5);
         RaycastObservation(leg1_lower.position, leg1_lower.up, 5);
@@ -218,8 +230,21 @@ public class DogAgent : Agent {
         RaycastObservation(leg3_lower.position, leg3_lower.up, 5);
 
         //forward & up to help with orientation
-        AddVectorObs(body.forward);
-        AddVectorObs(body.up);
+        // AddVectorObs(-body.forward); //this is local up
+        // AddVectorObs(body.up); //the capsule is rotated so this is local forward
+
+
+        // AddVectorObs(body.rotation); //the capsule is rotated so this is local forward
+        if(dirToTarget != Vector3.zero)
+        {
+            AddVectorObs(Quaternion.LookRotation(dirToTarget));
+        }
+        else
+        {
+            AddVectorObs(Quaternion.identity);
+
+        }
+
 
         foreach (var bodyPart in bodyParts.Values)
         {
@@ -240,6 +265,26 @@ public class DogAgent : Agent {
 		Done();
 	}
 
+    Vector3 GetAvgCenterOfMassForAllRBs()
+    {
+        Vector3 CoM = Vector3.zero;
+        float c = 0f;
+        
+        foreach (Rigidbody rb in allRBs)
+        {
+            CoM += rb.worldCenterOfMass * rb.mass;
+            c += rb.mass;
+        }
+ 
+        CoM /= c;
+        return body.InverseTransformPoint(CoM);
+        // Debug.DrawRay(body.position, body.InverseTransformPoint(CoM), Color.red, .05f);
+        // Debug.DrawRay(CoM, Vector3.up, Color.green, .05f);
+        // // print(CoM);
+        // print(body.InverseTransformPoint(CoM));
+    }
+
+
     /// <summary>
     /// Moves target to a random position within specified radius.
     /// </summary>
@@ -255,6 +300,7 @@ public class DogAgent : Agent {
 
 	 public override void AgentAction(float[] vectorAction, string textAction)
     {
+        // GetAvgCenterOfMassForAllRBs();
         //update pos to target
 		dirToTarget = target.position - bodyParts[body].rb.position;
 
@@ -297,7 +343,9 @@ public class DogAgent : Agent {
     void RewardFunctionFacingTarget()
     {
         //0.01f chosen via experimentation.
-		facingDot = Vector3.Dot(dirToTarget.normalized, body.forward);
+		// facingDot = Vector3.Dot(dirToTarget.normalized, body.up);
+        facingDot = Vector3.Dot(dirToTarget.normalized, body.up); //up is local forward because capsule is rotated
+
         AddReward(0.01f * facingDot);
     }
 
