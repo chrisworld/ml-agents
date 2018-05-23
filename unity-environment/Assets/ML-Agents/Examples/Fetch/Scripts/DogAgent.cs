@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrawlerAgent : Agent {
+public class DogAgent : Agent {
 
     [Header("Target To Walk Towards")] 
     [Space(10)] 
@@ -64,8 +64,8 @@ public class CrawlerAgent : Agent {
         public Rigidbody rb;
         public Vector3 startingPos;
         public Quaternion startingRot;
-        public CrawlerContact groundContact;
-		public CrawlerAgent agent;
+        public DogContact groundContact;
+		public DogAgent agent;
 
         /// <summary>
         /// Reset body part to initial configuration.
@@ -118,7 +118,7 @@ public class CrawlerAgent : Agent {
         };
 		bp.rb.maxAngularVelocity = 100;
         bodyParts.Add(t, bp);
-        bp.groundContact = t.GetComponent<CrawlerContact>();
+        bp.groundContact = t.GetComponent<DogContact>();
 		bp.agent = this;
     }
 
@@ -197,6 +197,7 @@ public class CrawlerAgent : Agent {
 
                 //hit point position relative to the body's local space
                 relativeHitPos = body.InverseTransformPoint(hit.point); 
+                // print(hit.collider.gameObject.name);
             }
         }
 

@@ -8,10 +8,10 @@ using UnityEngine;
 /// an observation for that agent, and/or a means of punishing the agent for making undesirable contact.
 /// !!! You MUST tag the ground "ground", and the target "target" for this script to work
 /// </summary>
-public class CrawlerContact : MonoBehaviour
+public class DogContact : MonoBehaviour
 {
     [HideInInspector]
-    public CrawlerAgent agent;
+    public DogAgent agent;
     public float contactPenalty;
     public bool touchingGround;
     public bool penalizeOnContact;
@@ -22,7 +22,7 @@ public class CrawlerContact : MonoBehaviour
     /// </summary>
     void Start()
     {
-        agent = transform.root.GetComponent<CrawlerAgent>();
+        agent = transform.root.GetComponent<DogAgent>();
         Physics.defaultSolverIterations = 6; //increasing this to increase solver accuracy
         Physics.defaultSolverVelocityIterations = 6; //increasing this to increase solver accuracy
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrawlerAcademy : Academy
+public class DogAcademy : Academy
 {
 
     public override void InitializeAcademy()
