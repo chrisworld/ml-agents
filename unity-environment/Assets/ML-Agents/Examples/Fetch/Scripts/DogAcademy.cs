@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DogAcademy : Academy
+{
+
+    public override void InitializeAcademy()
+    {
+        Monitor.verticalOffset = 1f;
+        Physics.defaultSolverIterations = 6;
+        Physics.defaultSolverVelocityIterations = 6;
+    }
+    public override void AcademyReset()
+    {
+
+
+    }
+
+    public override void AcademyStep()
+    {
+
+
+    }
+
+}
