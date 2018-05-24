@@ -713,8 +713,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095372062048768}
   m_LocalRotation: {x: 0.6994454, y: -0.104894705, z: 0.6991283, w: -0.10484728}
-  m_LocalPosition: {x: 0.17891, y: -0.629, z: -0.99467}
-  m_LocalScale: {x: 0.20940213, y: 0.17885077, z: 0.20940374}
+  m_LocalPosition: {x: 0.16207, y: -0.60889, z: -0.9452}
+  m_LocalScale: {x: 0.18968856, y: 0.1620134, z: 0.18969005}
   m_Children: []
   m_Father: {fileID: 4600396491978282}
   m_RootOrder: 3
@@ -725,14 +725,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576210082292208}
-  m_LocalRotation: {x: -0.70726687, y: 0.0000000074796835, z: -0.70694673, w: 0}
-  m_LocalPosition: {x: -0.17918, y: -0.86697, z: -1.6361}
-  m_LocalScale: {x: 0.13604404, y: 0.1398869, z: 0.13413867}
+  m_LocalRotation: {x: -0.68698424, y: 0.16816406, z: -0.6866731, w: 0.16808796}
+  m_LocalPosition: {x: -0.181, y: -0.789, z: -1.758}
+  m_LocalScale: {x: 0.12323657, y: 0.12671766, z: 0.12151059}
   m_Children:
   - {fileID: 4728257418217728}
   m_Father: {fileID: 4600396491978282}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -180, y: -89.974, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: -89.974, z: 27.508987}
 --- !u!4 &4154534624476228
 Transform:
   m_ObjectHideFlags: 1
@@ -752,14 +752,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805679572719756}
-  m_LocalRotation: {x: -0.70726687, y: 0.0000000074796835, z: -0.70694673, w: 0}
-  m_LocalPosition: {x: 0.1785, y: -0.86697, z: -1.6362}
-  m_LocalScale: {x: 0.13597882, y: 0.1398196, z: 0.13413836}
+  m_LocalRotation: {x: -0.68698424, y: 0.16816406, z: -0.6866731, w: 0.16808796}
+  m_LocalPosition: {x: 0.18134001, y: -0.7890293, z: -1.7581073}
+  m_LocalScale: {x: 0.12317748, y: 0.12665671, z: 0.121510305}
   m_Children:
   - {fileID: 4454502429838648}
   m_Father: {fileID: 4600396491978282}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -180, y: -89.974, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: -89.974, z: 27.508987}
 --- !u!4 &4230384459292356
 Transform:
   m_ObjectHideFlags: 1
@@ -779,13 +779,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1171982352686424}
-  m_LocalRotation: {x: -0.69912827, y: 0.104847915, z: 0.69944525, w: -0.10489537}
-  m_LocalPosition: {x: -0.17909, y: -0.629, z: -1.6546}
-  m_LocalScale: {x: 0.23034197, y: 0.1967348, z: 0.23034276}
+  m_LocalRotation: {x: -0.7040082, y: -0.06438803, z: 0.70432734, w: 0.064417146}
+  m_LocalPosition: {x: -0.1809541, y: -0.5900899, z: -1.6732408}
+  m_LocalScale: {x: 0.20865709, y: 0.17821379, z: 0.20865783}
   m_Children: []
   m_Father: {fileID: 4600396491978282}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -180, y: 90.02599, z: 17.057999}
+  m_LocalEulerAnglesHint: {x: -180, y: 90.02599, z: -10.450989}
 --- !u!4 &4337647092209668
 Transform:
   m_ObjectHideFlags: 1
@@ -930,7 +930,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1044349968311420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.493, z: 0}
+  m_LocalPosition: {x: 0, y: 2.051, z: 0}
   m_LocalScale: {x: 1, y: 1.0000004, z: 1.0000004}
   m_Children:
   - {fileID: 4855701434751996}
@@ -1043,8 +1043,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410933914864002}
   m_LocalRotation: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
-  m_LocalPosition: {x: -0.17881, y: -0.86697, z: -1.0294}
-  m_LocalScale: {x: 0.13592115, y: 0.1398774, z: 0.13413836}
+  m_LocalPosition: {x: -0.16198, y: -0.82446, z: -0.9766}
+  m_LocalScale: {x: 0.12312524, y: 0.12670904, z: 0.121510305}
   m_Children:
   - {fileID: 4342860705331846}
   m_Father: {fileID: 4600396491978282}
@@ -1096,8 +1096,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1578454322146140}
   m_LocalRotation: {x: -0.69912887, y: -0.10484717, z: 0.6994449, w: 0.10489459}
-  m_LocalPosition: {x: -0.17879, y: -0.629, z: -0.99451}
-  m_LocalScale: {x: 0.20940223, y: 0.17884986, z: 0.20940256}
+  m_LocalPosition: {x: -0.16196, y: -0.60889, z: -0.945}
+  m_LocalScale: {x: 0.18968865, y: 0.16201256, z: 0.18968898}
   m_Children: []
   m_Father: {fileID: 4600396491978282}
   m_RootOrder: 2
@@ -1149,8 +1149,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1801946295344152}
   m_LocalRotation: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
-  m_LocalPosition: {x: 0.17889, y: -0.86697, z: -1.0296}
-  m_LocalScale: {x: 0.13598494, y: 0.13994324, z: 0.13413852}
+  m_LocalPosition: {x: 0.16205, y: -0.82446, z: -0.9768}
+  m_LocalScale: {x: 0.12318303, y: 0.1267687, z: 0.12151045}
   m_Children:
   - {fileID: 4711329562907352}
   m_Father: {fileID: 4600396491978282}
@@ -1175,13 +1175,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1475363576299334}
-  m_LocalRotation: {x: -0.69944507, y: -0.10489533, z: -0.69912845, w: -0.10484788}
-  m_LocalPosition: {x: 0.1786, y: -0.629, z: -1.6548}
-  m_LocalScale: {x: 0.23034205, y: 0.19673516, z: 0.2303434}
+  m_LocalRotation: {x: -0.7043272, y: 0.06441723, z: -0.7040084, w: 0.064388014}
+  m_LocalPosition: {x: 0.1813859, y: -0.5900738, z: -1.6734365}
+  m_LocalScale: {x: 0.20865715, y: 0.17821412, z: 0.20865841}
   m_Children: []
   m_Father: {fileID: 4600396491978282}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: -89.974, z: -17.057983}
+  m_LocalEulerAnglesHint: {x: -180, y: -89.974, z: 10.450989}
 --- !u!4 &4885848908746974
 Transform:
   m_ObjectHideFlags: 1
@@ -2687,7 +2687,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576210082292208}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2702,7 +2702,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095372062048768}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2732,7 +2732,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410933914864002}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2747,7 +2747,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1801946295344152}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2762,7 +2762,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1171982352686424}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2777,7 +2777,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1475363576299334}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2807,7 +2807,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805679572719756}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2837,7 +2837,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1578454322146140}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -3003,10 +3003,10 @@ MonoBehaviour:
   brain: {fileID: 0}
   agentParameters:
     agentCameras: []
-    maxStep: 10000
+    maxStep: 4000
     resetOnDone: 1
     onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 5
+    numberOfActionsBetweenDecisions: 3
   target: {fileID: 0}
   respawnTargetWhenTouched: 1
   targetSpawnRadius: 10
@@ -3019,11 +3019,174 @@ MonoBehaviour:
   leg2_lower: {fileID: 4711242857243822}
   leg3_upper: {fileID: 4077745219475306}
   leg3_lower: {fileID: 4780204905084734}
-  maxJointSpring: 40000
-  jointDampen: 3000
-  maxJointForceLimit: 500000
+  bodyPartsList:
+  - joint: {fileID: 0}
+    rb: {fileID: 54634480368473274}
+    startingPos: {x: -0.000089763, y: 1.58162, z: -1.3035005}
+    startingWorldRot: {x: 0.7071068, y: -0, z: -0, w: 0.70710677}
+    startingLocalRot: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
+    groundContact: {fileID: 114846286874673700}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: 0, y: 0, z: 0}
+    previousSpringValue: 0
+  - joint: {fileID: 153265935544953882}
+    rb: {fileID: 54631067049946670}
+    startingPos: {x: 0.18117, y: 1.4140599, z: -1.6234006}
+    startingWorldRot: {x: -0.69944507, y: -0.10489533, z: -0.69912845, w: -0.10484788}
+    startingLocalRot: {x: -0.69944507, y: -0.10489533, z: -0.69912845, w: -0.10484788}
+    groundContact: {fileID: 114579580013378498}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -36.055965, y: -14.359552, z: 0}
+    previousSpringValue: 4821.0444
+  - joint: {fileID: 153418419815379986}
+    rb: {fileID: 54799925421682182}
+    startingPos: {x: 0.18117, y: 1.1984899, z: -1.6066006}
+    startingWorldRot: {x: -0.70726687, y: 0.0000000074796835, z: -0.70694673, w: 0}
+    startingLocalRot: {x: -0.70726687, y: 0.0000000074796835, z: -0.70694673, w: 0}
+    groundContact: {fileID: 114456729992700864}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -9.599594, y: 0, z: 0}
+    previousSpringValue: 5457.9966
+  - joint: {fileID: 153024332266829758}
+    rb: {fileID: 54400608046781156}
+    startingPos: {x: -0.18117, y: 1.4140599, z: -1.6232007}
+    startingWorldRot: {x: -0.69912827, y: 0.104847915, z: 0.69944525, w: -0.10489537}
+    startingLocalRot: {x: -0.69912827, y: 0.104847915, z: 0.69944525, w: -0.10489537}
+    groundContact: {fileID: 114293685110293890}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -16.282352, y: 1.570723, z: 0}
+    previousSpringValue: 5448.9966
+  - joint: {fileID: 153745865621258862}
+    rb: {fileID: 54076105354381062}
+    startingPos: {x: -0.18117, y: 1.1984899, z: -1.6065006}
+    startingWorldRot: {x: -0.70726687, y: 0.0000000074796835, z: -0.70694673, w: 0}
+    startingLocalRot: {x: -0.70726687, y: 0.0000000074796835, z: -0.70694673, w: 0}
+    groundContact: {fileID: 114363080902081694}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -10.991148, y: 0, z: 0}
+    previousSpringValue: 3172.5762
+  - joint: {fileID: 153842782605798726}
+    rb: {fileID: 54963776860575268}
+    startingPos: {x: -0.16196, y: 1.4421098, z: -1.0057003}
+    startingWorldRot: {x: -0.69912887, y: -0.10484717, z: 0.6994449, w: 0.10489459}
+    startingLocalRot: {x: -0.69912887, y: -0.10484717, z: 0.6994449, w: 0.10489459}
+    groundContact: {fileID: 114820178163915822}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -16.54707, y: -15.452256, z: 0}
+    previousSpringValue: 7443.8857
+  - joint: {fileID: 153013161020555494}
+    rb: {fileID: 54344182294057346}
+    startingPos: {x: -0.16198, y: 1.2265399, z: -1.0373003}
+    startingWorldRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    startingLocalRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    groundContact: {fileID: 114329539610658742}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -7.159617, y: 0, z: 0}
+    previousSpringValue: 6105.0303
+  - joint: {fileID: 153495738936209702}
+    rb: {fileID: 54184261398033114}
+    startingPos: {x: 0.16207, y: 1.4421098, z: -1.0059004}
+    startingWorldRot: {x: 0.6994454, y: -0.104894705, z: 0.6991283, w: -0.10484728}
+    startingLocalRot: {x: 0.6994454, y: -0.104894705, z: 0.6991283, w: -0.10484728}
+    groundContact: {fileID: 114759018719510066}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -22.948267, y: 43.04625, z: 0}
+    previousSpringValue: 5189.619
+  - joint: {fileID: 153541042965226020}
+    rb: {fileID: 54365696400985646}
+    startingPos: {x: 0.16205, y: 1.2265399, z: -1.0375004}
+    startingWorldRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    startingLocalRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    groundContact: {fileID: 114528988606614702}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -11.422147, y: 0, z: 0}
+    previousSpringValue: 3899.2783
+  - joint: {fileID: 0}
+    rb: {fileID: 54634480368473274}
+    startingPos: {x: -0.000089763, y: 1.58162, z: -1.3035005}
+    startingWorldRot: {x: 0.7071068, y: -0, z: -0, w: 0.70710677}
+    startingLocalRot: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
+    groundContact: {fileID: 114846286874673700}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: 0, y: 0, z: 0}
+    previousSpringValue: 0
+  - joint: {fileID: 153265935544953882}
+    rb: {fileID: 54631067049946670}
+    startingPos: {x: 0.1813859, y: 1.460926, z: -1.6734371}
+    startingWorldRot: {x: -0.7043272, y: 0.06441723, z: -0.7040084, w: 0.064388014}
+    startingLocalRot: {x: -0.7043272, y: 0.06441723, z: -0.7040084, w: 0.064388014}
+    groundContact: {fileID: 114579580013378498}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -20.487995, y: -43.00812, z: 0}
+    previousSpringValue: 7649.546
+  - joint: {fileID: 153418419815379986}
+    rb: {fileID: 54799925421682182}
+    startingPos: {x: 0.18134001, y: 1.2619705, z: -1.7581079}
+    startingWorldRot: {x: -0.68698424, y: 0.16816406, z: -0.6866731, w: 0.16808796}
+    startingLocalRot: {x: -0.68698424, y: 0.16816406, z: -0.6866731, w: 0.16808796}
+    groundContact: {fileID: 114456729992700864}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -9.603607, y: 0, z: 0}
+    previousSpringValue: 5123.6616
+  - joint: {fileID: 153024332266829758}
+    rb: {fileID: 54400608046781156}
+    startingPos: {x: -0.1809541, y: 1.46091, z: -1.6732414}
+    startingWorldRot: {x: -0.7040082, y: -0.06438803, z: 0.70432734, w: 0.064417146}
+    startingLocalRot: {x: -0.7040082, y: -0.06438803, z: 0.70432734, w: 0.064417146}
+    groundContact: {fileID: 114293685110293890}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -15.538885, y: -1.2289882, z: 0}
+    previousSpringValue: 6376.6846
+  - joint: {fileID: 153745865621258862}
+    rb: {fileID: 54076105354381062}
+    startingPos: {x: -0.181, y: 1.2619998, z: -1.7580006}
+    startingWorldRot: {x: -0.68698424, y: 0.16816406, z: -0.6866731, w: 0.16808796}
+    startingLocalRot: {x: -0.68698424, y: 0.16816406, z: -0.6866731, w: 0.16808796}
+    groundContact: {fileID: 114363080902081694}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -11.11977, y: 0, z: 0}
+    previousSpringValue: 5514.545
+  - joint: {fileID: 153842782605798726}
+    rb: {fileID: 54963776860575268}
+    startingPos: {x: -0.16196, y: 1.4421098, z: -1.0057003}
+    startingWorldRot: {x: -0.69912887, y: -0.10484717, z: 0.6994449, w: 0.10489459}
+    startingLocalRot: {x: -0.69912887, y: -0.10484717, z: 0.6994449, w: 0.10489459}
+    groundContact: {fileID: 114820178163915822}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -31.79912, y: 17.614717, z: 0}
+    previousSpringValue: 1887.6018
+  - joint: {fileID: 153013161020555494}
+    rb: {fileID: 54344182294057346}
+    startingPos: {x: -0.16198, y: 1.2265399, z: -1.0373003}
+    startingWorldRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    startingLocalRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    groundContact: {fileID: 114329539610658742}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -13.293321, y: 0, z: 0}
+    previousSpringValue: 3130.792
+  - joint: {fileID: 153495738936209702}
+    rb: {fileID: 54184261398033114}
+    startingPos: {x: 0.16207, y: 1.4421098, z: -1.0059004}
+    startingWorldRot: {x: 0.6994454, y: -0.104894705, z: 0.6991283, w: -0.10484728}
+    startingLocalRot: {x: 0.6994454, y: -0.104894705, z: 0.6991283, w: -0.10484728}
+    groundContact: {fileID: 114759018719510066}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -23.329443, y: 31.759464, z: 0}
+    previousSpringValue: 4936.59
+  - joint: {fileID: 153541042965226020}
+    rb: {fileID: 54365696400985646}
+    startingPos: {x: 0.16205, y: 1.2265399, z: -1.0375004}
+    startingWorldRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    startingLocalRot: {x: 0.70276093, y: 0.079709254, z: 0.70244277, w: 0.079673104}
+    groundContact: {fileID: 114528988606614702}
+    agent: {fileID: 114477144195114278}
+    previousJointRotation: {x: -9.055634, y: 0, z: 0}
+    previousSpringValue: 2996.5898
+  maxJointSpring: 10000
+  jointDampen: 100
+  maxJointForceLimit: 100000
   footCenterOfMassShift: {x: 0, y: 0, z: 0}
-  dirToTarget: {x: 0, y: 0, z: 0}
+  bodyCenterOfMassShift: {x: 0, y: 0, z: 0.5}
   rewardMovingTowardsTarget: 1
   rewardFacingTarget: 1
   rewardUseTimePenalty: 1
@@ -3034,6 +3197,13 @@ MonoBehaviour:
   foot3: {fileID: 0}
   groundedMaterial: {fileID: 2100000, guid: 624b24bbec31f44babfb57ef2dfbc537, type: 2}
   unGroundedMaterial: {fileID: 2100000, guid: ee5cbef904f50490494fa32532f6e257, type: 2}
+  isNewDecisionStep: 0
+  currentAgentStep: 3
+  maxJointAngleChangePerDecision: 25
+  maxJointStrengthChangePerDecision: 2000
+  testJointRotation: 0
+  targetRotUpper: {x: 0, y: 0, z: 0}
+  targetRotLower: {x: 0, y: 0, z: 0}
 --- !u!114 &114528988606614702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3138,7 +3308,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   contactPenalty: -1
   touchingGround: 0
-  penalizeOnContact: 1
+  penalizeOnContact: 0
 --- !u!135 &135184233817890802
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3378,7 +3548,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.15992133, y: 0.6519353, z: 0.000020458603}
+  m_ConnectedAnchor: {x: 0.15988928, y: 0.65194327, z: 0.000030342162}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -3402,7 +3572,7 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 20
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -3472,7 +3642,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.27990428, y: -0.7545995, z: -0.052532665}
+  m_ConnectedAnchor: {x: -0.28275502, y: -0.6228105, z: -0.10068557}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -3492,11 +3662,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -80
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 40
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -3542,8 +3712,8 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
+    positionSpring: 10000
+    positionDamper: 300
     maximumForce: 3.4028233e+38
   m_ProjectionMode: 1
   m_ProjectionDistance: 0.1
@@ -3566,7 +3736,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.27933717, y: -0.75496894, z: -0.052533325}
+  m_ConnectedAnchor: {x: 0.2837566, y: -0.62317157, z: -0.10071593}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -3586,11 +3756,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -80
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 40
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -3636,8 +3806,8 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
+    positionSpring: 10000
+    positionDamper: 300
     maximumForce: 3.4028233e+38
   m_ProjectionMode: 1
   m_ProjectionDistance: 0.1
@@ -3754,7 +3924,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.04779741, y: 0.50468206, z: -0.00047069223}
+  m_ConnectedAnchor: {x: -0.048029654, y: 0.50461334, z: -0.00003615341}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -3778,7 +3948,7 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 20
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -3848,7 +4018,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.27989984, y: 0.66689193, z: -0.020974217}
+  m_ConnectedAnchor: {x: 0.2535673, y: 0.7490889, z: -0.028382199}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -3868,11 +4038,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -80
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 40
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -3918,8 +4088,8 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
+    positionSpring: 10000
+    positionDamper: 300
     maximumForce: 3.4028233e+38
   m_ProjectionMode: 1
   m_ProjectionDistance: 0.1
@@ -3942,7 +4112,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.16026147, y: 0.65167874, z: -0.000019853627}
+  m_ConnectedAnchor: {x: -0.16004644, y: 0.65162086, z: -0.000030008128}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -3966,7 +4136,7 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 20
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -4036,7 +4206,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.04812736, y: 0.5042067, z: 0.00042707546}
+  m_ConnectedAnchor: {x: 0.04840042, y: 0.504127, z: 0.000035983896}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -4060,7 +4230,7 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 20
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -4200,7 +4370,7 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
-    positionSpring: 111
+    positionSpring: 55
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_ProjectionMode: 1
@@ -4224,7 +4394,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.27935728, y: 0.6671867, z: -0.020972457}
+  m_ConnectedAnchor: {x: -0.2530474, y: 0.7494576, z: -0.028380658}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -4244,11 +4414,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -80
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 40
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -4294,8 +4464,8 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
-    positionSpring: 0
-    positionDamper: 0
+    positionSpring: 10000
+    positionDamper: 300
     maximumForce: 3.4028233e+38
   m_ProjectionMode: 1
   m_ProjectionDistance: 0.1
