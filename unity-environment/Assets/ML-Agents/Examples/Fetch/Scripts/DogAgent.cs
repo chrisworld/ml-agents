@@ -17,12 +17,12 @@ public class DogAgent : Agent {
     [Space(10)] 
     public Transform body;
     public Transform leg0_upper;
-    public Transform leg0_lower;
     public Transform leg1_upper;
-    public Transform leg1_lower;
     public Transform leg2_upper;
-    public Transform leg2_lower;
     public Transform leg3_upper;
+    public Transform leg0_lower;
+    public Transform leg1_lower;
+    public Transform leg2_lower;
     public Transform leg3_lower;
     public Dictionary<Transform, BodyPart> bodyParts = new Dictionary<Transform, BodyPart>();
     public List<BodyPart> bodyPartsList = new List<BodyPart>();
@@ -66,6 +66,9 @@ public class DogAgent : Agent {
     public bool testJointRotation;
     public Vector3 targetRotUpper;
     public Vector3 targetRotLower;
+
+//force = spring * (targetPosition - position) + damping * (targetVelocity - velocity)
+
 
     /// <summary>
     /// Used to store relevant information for acting and learning for each body part in agent.
@@ -226,25 +229,58 @@ public class DogAgent : Agent {
     /// <summary>
     /// Add relevant information on each body part to observations.
     /// </summary>
-    public void CollectObservationBodyPart(BodyPart bp)
+    // public void CollectObservationBodyPart(BodyPart bp)
+    public void CollectObservationBodyPart(Transform bp)
     {
         ShiftCoM();
-        var rb = bp.rb;
-        AddVectorObs(bp.groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
+        var rb = bodyParts[bp].rb;
+        AddVectorObs(bodyParts[bp].groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
 
-        // AddVectorObs(rb.velocity);
-        // AddVectorObs(rb.angularVelocity);
-        Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
-        AddVectorObs(localPosRelToBody);
 
-        if(bp.rb.transform != body)
+        if(bp == leg0_upper || bp == leg1_upper || bp == leg2_upper || bp == leg3_upper )
         {
-            // AddVectorObs(body.localRotation); //the capsule is rotated so this is local forward
-
-            // // AddVectorObs(Quaternion.FromToRotation(body.forward, bp.rb.transform.forward));
-            AddVectorObs(Quaternion.FromToRotation(body.up, bp.rb.transform.forward));  //up is local forward because capsule is rotated
+            AddVectorObs(rb.velocity);
+            AddVectorObs(rb.angularVelocity);
+            // Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
+            // AddVectorObs(localPosRelToBody);
+            AddVectorObs(Quaternion.FromToRotation(-body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
         }
+
+        // if(bp.rb.transform != body)
+        // {
+        //     // AddVectorObs(body.localRotation); //the capsule is rotated so this is local forward
+
+        //     AddVectorObs(Quaternion.FromToRotation(-body.forward, bp.rb.transform.forward)); //-forward is local up because capsule is rotated
+        //     // // AddVectorObs(Quaternion.FromToRotation(body.forward, bp.rb.transform.forward));
+        //     // AddVectorObs(Quaternion.FromToRotation(body.up, bp.rb.transform.forward));  //up is local forward because capsule is rotated
+        // }
     }
+
+
+
+    // /// <summary>
+    // /// Add relevant information on each body part to observations.
+    // /// </summary>
+    // public void CollectObservationBodyPart(BodyPart bp)
+    // {
+    //     ShiftCoM();
+    //     var rb = bp.rb;
+    //     AddVectorObs(bp.groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
+
+    //     // AddVectorObs(rb.velocity);
+    //     // AddVectorObs(rb.angularVelocity);
+    //     Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
+    //     AddVectorObs(localPosRelToBody);
+
+    //     if(bp.rb.transform != body)
+    //     {
+    //         // AddVectorObs(body.localRotation); //the capsule is rotated so this is local forward
+
+    //         // AddVectorObs(Quaternion.FromToRotation(-body.forward, bp.rb.transform.forward));
+    //         // // AddVectorObs(Quaternion.FromToRotation(body.forward, bp.rb.transform.forward));
+    //         AddVectorObs(Quaternion.FromToRotation(body.up, bp.rb.transform.forward));  //up is local forward because capsule is rotated
+    //     }
+    // }
 
     // void FixedUpdate()
     // {
@@ -299,10 +335,10 @@ public class DogAgent : Agent {
         // AddVectorObs(GetAvgCenterOfMassForAllRBs());
 
         //raycast out of the bottom of the legs to get information about where the ground is
-        RaycastObservation(leg0_lower.position, leg0_lower.up, 5);
-        RaycastObservation(leg1_lower.position, leg1_lower.up, 5);
-        RaycastObservation(leg2_lower.position, leg2_lower.up, 5);
-        RaycastObservation(leg3_lower.position, leg3_lower.up, 5);
+        RaycastObservation(leg0_lower.position, leg0_lower.up, 1);
+        RaycastObservation(leg1_lower.position, leg1_lower.up, 1);
+        RaycastObservation(leg2_lower.position, leg2_lower.up, 1);
+        RaycastObservation(leg3_lower.position, leg3_lower.up, 1);
 
         //forward & up to help with orientation
         // AddVectorObs(-body.forward); //this is local up
@@ -313,6 +349,7 @@ public class DogAgent : Agent {
         if(dirToTarget != Vector3.zero)
         {
             AddVectorObs(Quaternion.LookRotation(dirToTarget));
+            // print(Quaternion.LookRotation(dirToTarget));
         }
         else
         {
@@ -321,11 +358,19 @@ public class DogAgent : Agent {
         }
 
 
-        foreach (var bodyPart in bodyParts.Values)
+        // foreach (var bodyPart in bodyParts.Values)
+        // {
+        //     CollectObservationBodyPart(bodyPart);
+        // }
+        foreach (var bodyPart in bodyParts)
         {
-            CollectObservationBodyPart(bodyPart);
+            CollectObservationBodyPart(bodyPart.Key);
         }
     }
+
+
+
+
 
 	/// <summary>
     /// Agent touched the target
@@ -438,6 +483,12 @@ public class DogAgent : Agent {
             foot3.material = bodyParts[leg3_lower].groundContact.touchingGround? groundedMaterial: unGroundedMaterial;
         }
 
+
+
+
+
+
+
         if(isNewDecisionStep)
         {
             // // Apply action to all relevant body parts. 
@@ -454,21 +505,60 @@ public class DogAgent : Agent {
             bodyParts[leg1_upper].SetNormalizedTargetRotation(vectorAction[2], vectorAction[3], 0);
             bodyParts[leg2_upper].SetNormalizedTargetRotation(vectorAction[4], vectorAction[5], 0);
             bodyParts[leg3_upper].SetNormalizedTargetRotation(vectorAction[6], vectorAction[7], 0);
-            bodyParts[leg0_lower].SetNormalizedTargetRotation(vectorAction[8], 0, 0);
-            bodyParts[leg1_lower].SetNormalizedTargetRotation(vectorAction[9], 0, 0);
-            bodyParts[leg2_lower].SetNormalizedTargetRotation(vectorAction[10], 0, 0);
-            bodyParts[leg3_lower].SetNormalizedTargetRotation(vectorAction[11], 0, 0);
+            // bodyParts[leg0_lower].SetNormalizedTargetRotation(vectorAction[8], 0, 0);
+            // bodyParts[leg1_lower].SetNormalizedTargetRotation(vectorAction[9], 0, 0);
+            // bodyParts[leg2_lower].SetNormalizedTargetRotation(vectorAction[10], 0, 0);
+            // bodyParts[leg3_lower].SetNormalizedTargetRotation(vectorAction[11], 0, 0);
         }
 
             //update joint drive settings
-            bodyParts[leg0_upper].UpdateJointDrive(vectorAction[12]);
-            bodyParts[leg1_upper].UpdateJointDrive(vectorAction[13]);
-            bodyParts[leg2_upper].UpdateJointDrive(vectorAction[14]);
-            bodyParts[leg3_upper].UpdateJointDrive(vectorAction[15]);
-            bodyParts[leg0_lower].UpdateJointDrive(vectorAction[16]);
-            bodyParts[leg1_lower].UpdateJointDrive(vectorAction[17]);
-            bodyParts[leg2_lower].UpdateJointDrive(vectorAction[18]);
-            bodyParts[leg3_lower].UpdateJointDrive(vectorAction[19]);
+            bodyParts[leg0_upper].UpdateJointDrive(vectorAction[8]);
+            bodyParts[leg1_upper].UpdateJointDrive(vectorAction[9]);
+            bodyParts[leg2_upper].UpdateJointDrive(vectorAction[10]);
+            bodyParts[leg3_upper].UpdateJointDrive(vectorAction[11]);
+            // bodyParts[leg0_lower].UpdateJointDrive(vectorAction[16]);
+            // bodyParts[leg1_lower].UpdateJointDrive(vectorAction[17]);
+            // bodyParts[leg2_lower].UpdateJointDrive(vectorAction[18]);
+            // bodyParts[leg3_lower].UpdateJointDrive(vectorAction[19]);
+
+
+
+
+
+        // if(isNewDecisionStep)
+        // {
+        //     // // Apply action to all relevant body parts. 
+        //     // bodyParts[leg0_upper].SetNormalizedTargetRotation(vectorAction[0], vectorAction[1], 0, vectorAction[2]);
+        //     // bodyParts[leg1_upper].SetNormalizedTargetRotation(vectorAction[3], vectorAction[4], 0, vectorAction[5]);
+        //     // bodyParts[leg2_upper].SetNormalizedTargetRotation(vectorAction[6], vectorAction[7], 0, vectorAction[8]);
+        //     // bodyParts[leg3_upper].SetNormalizedTargetRotation(vectorAction[9], vectorAction[10], 0, vectorAction[11]);
+        //     // bodyParts[leg0_lower].SetNormalizedTargetRotation(vectorAction[12], 0, 0, vectorAction[13]);
+        //     // bodyParts[leg1_lower].SetNormalizedTargetRotation(vectorAction[14], 0, 0, vectorAction[15]);
+        //     // bodyParts[leg2_lower].SetNormalizedTargetRotation(vectorAction[16], 0, 0, vectorAction[17]);
+        //     // bodyParts[leg3_lower].SetNormalizedTargetRotation(vectorAction[18], 0, 0, vectorAction[19]);
+        //     // Apply action to all relevant body parts. 
+        //     bodyParts[leg0_upper].SetNormalizedTargetRotation(vectorAction[0], vectorAction[1], 0);
+        //     bodyParts[leg1_upper].SetNormalizedTargetRotation(vectorAction[2], vectorAction[3], 0);
+        //     bodyParts[leg2_upper].SetNormalizedTargetRotation(vectorAction[4], vectorAction[5], 0);
+        //     bodyParts[leg3_upper].SetNormalizedTargetRotation(vectorAction[6], vectorAction[7], 0);
+        //     bodyParts[leg0_lower].SetNormalizedTargetRotation(vectorAction[8], 0, 0);
+        //     bodyParts[leg1_lower].SetNormalizedTargetRotation(vectorAction[9], 0, 0);
+        //     bodyParts[leg2_lower].SetNormalizedTargetRotation(vectorAction[10], 0, 0);
+        //     bodyParts[leg3_lower].SetNormalizedTargetRotation(vectorAction[11], 0, 0);
+        // }
+
+        //     //update joint drive settings
+        //     bodyParts[leg0_upper].UpdateJointDrive(vectorAction[12]);
+        //     bodyParts[leg1_upper].UpdateJointDrive(vectorAction[13]);
+        //     bodyParts[leg2_upper].UpdateJointDrive(vectorAction[14]);
+        //     bodyParts[leg3_upper].UpdateJointDrive(vectorAction[15]);
+        //     bodyParts[leg0_lower].UpdateJointDrive(vectorAction[16]);
+        //     bodyParts[leg1_lower].UpdateJointDrive(vectorAction[17]);
+        //     bodyParts[leg2_lower].UpdateJointDrive(vectorAction[18]);
+        //     bodyParts[leg3_lower].UpdateJointDrive(vectorAction[19]);
+
+
+
 
         // Set reward for this step according to mixture of the following elements.
         if(rewardMovingTowardsTarget){RewardFunctionMovingTowards();}
