@@ -6,6 +6,7 @@ public class SpeedUI : MonoBehaviour {
 
 	public float topSpeed;
 	public TextMeshProUGUI speedTextUI;
+	public DogAgent fastestDog;
 	// Use this for initialization
 	void Start () {
 		topSpeed = 0;

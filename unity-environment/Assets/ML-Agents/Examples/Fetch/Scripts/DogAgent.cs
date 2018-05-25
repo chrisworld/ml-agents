@@ -36,8 +36,9 @@ public class DogAgent : Agent {
 	public Vector3 footCenterOfMassShift; //used to shift the centerOfMass on the feet so the agent isn't so top heavy
 	public Vector3 bodyCenterOfMassShift; //used to shift the centerOfMass on the feet so the agent isn't so top heavy
 	Vector3 dirToTarget;
-	float movingTowardsDot;
-	float facingDot;
+	public float movingTowardsDot;
+	public float facingDot;
+	public float facingDotQuat;
 
 
     [Header("Reward Functions To Use")] 
@@ -68,6 +69,8 @@ public class DogAgent : Agent {
     public Vector3 targetRotLower;
 
     SpeedUI speedUI;
+    public GameObject jersey;
+    bool fastest;
 
 //force = spring * (targetPosition - position) + damping * (targetVelocity - velocity)
 
@@ -110,6 +113,11 @@ public class DogAgent : Agent {
             y = (y + 1f) * 0.5f;
             z = (z + 1f) * 0.5f;
         
+            // var newX = Mathf.Lerp(joint.lowAngularXLimit.limit, joint.highAngularXLimit.limit, x);
+            // var newX = Mathf.Lerp(previousJointRotation.x, joint.lowAngularXLimit.limit, joint.highAngularXLimit.limit, x);
+            // var xRot = Mathf.MoveTowards(previousJointRotation.x, , agent.maxJointAngleChangePerDecision);
+            // var yRot = Mathf.MoveTowards(previousJointRotation.y, Mathf.Lerp(-joint.angularYLimit.limit, joint.angularYLimit.limit, y), agent.maxJointAngleChangePerDecision);
+            // var zRot = Mathf.MoveTowards(previousJointRotation.z, Mathf.Lerp(-joint.angularZLimit.limit, joint.angularZLimit.limit, z), agent.maxJointAngleChangePerDecision);
             var xRot = Mathf.MoveTowards(previousJointRotation.x, Mathf.Lerp(joint.lowAngularXLimit.limit, joint.highAngularXLimit.limit, x), agent.maxJointAngleChangePerDecision);
             var yRot = Mathf.MoveTowards(previousJointRotation.y, Mathf.Lerp(-joint.angularYLimit.limit, joint.angularYLimit.limit, y), agent.maxJointAngleChangePerDecision);
             var zRot = Mathf.MoveTowards(previousJointRotation.z, Mathf.Lerp(-joint.angularZLimit.limit, joint.angularZLimit.limit, z), agent.maxJointAngleChangePerDecision);
@@ -210,11 +218,9 @@ public class DogAgent : Agent {
 
     void Awake()
     {
+        bodyPartsList.Clear();
         speedUI = FindObjectOfType<SpeedUI>();
-    }
-    //Initialize
-    public override void InitializeAgent()
-    {
+        jersey.SetActive(false);
         //Setup each body part
         SetupBodyPart(body);
         SetupBodyPart(leg0_upper);
@@ -231,6 +237,10 @@ public class DogAgent : Agent {
         allRBs.AddRange(gameObject.GetComponentsInChildren<Rigidbody>());
         currentAgentStep = 1;
     }
+    //Initialize
+    public override void InitializeAgent()
+    {
+    }
 
 
     /// <summary>
@@ -239,18 +249,21 @@ public class DogAgent : Agent {
     // public void CollectObservationBodyPart(BodyPart bp)
     public void CollectObservationBodyPart(Transform bp)
     {
-        ShiftCoM();
+        // ShiftCoM();
         var rb = bodyParts[bp].rb;
         AddVectorObs(bodyParts[bp].groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
 
 
+        // if(bp.rb.transform != body)
+        // {
         if(bp == leg0_upper || bp == leg1_upper || bp == leg2_upper || bp == leg3_upper )
         {
             AddVectorObs(rb.velocity);
             AddVectorObs(rb.angularVelocity);
             // Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
             // AddVectorObs(localPosRelToBody);
-            AddVectorObs(Quaternion.FromToRotation(-body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
+            AddVectorObs(Quaternion.FromToRotation(body.right, rb.transform.forward)); //-forward is local up because capsule is rotated
+            // AddVectorObs(Quaternion.FromToRotation(-body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
         }
 
         // if(bp.rb.transform != body)
@@ -349,20 +362,22 @@ public class DogAgent : Agent {
 
         //forward & up to help with orientation
         // AddVectorObs(-body.forward); //this is local up
-        // AddVectorObs(body.up); //the capsule is rotated so this is local forward
+        AddVectorObs(body.up); //the capsule is rotated so this is local forward
+        AddVectorObs(Vector3.Dot(dirToTarget.normalized, body.up)); //the capsule is rotated so this is local forward
 
 
         // AddVectorObs(body.rotation); //the capsule is rotated so this is local forward
-        if(dirToTarget != Vector3.zero)
-        {
-            AddVectorObs(Quaternion.LookRotation(dirToTarget));
-            // print(Quaternion.LookRotation(dirToTarget));
-        }
-        else
-        {
-            AddVectorObs(Quaternion.identity);
+        // // AddVectorObs(body.rotation); //the capsule is rotated so this is local forward
+        // if(dirToTarget != Vector3.zero)
+        // {
+        //     AddVectorObs(Quaternion.LookRotation(dirToTarget));
+        //     // print(Quaternion.LookRotation(dirToTarget));
+        // }
+        // else
+        // {
+        //     AddVectorObs(Quaternion.identity);
 
-        }
+        // }
 
 
         // foreach (var bodyPart in bodyParts.Values)
@@ -458,7 +473,29 @@ public class DogAgent : Agent {
 	public override void AgentAction(float[] vectorAction, string textAction)
     {
         // print(bodyParts[body].rb.velocity.z);
-        speedUI.CollectSpeed(bodyParts[body].rb.velocity.magnitude * 2.237f);
+        var speedMPH = bodyParts[body].rb.velocity.magnitude * 2.237f;
+        if(speedMPH > speedUI.topSpeed)
+        {
+            speedUI.CollectSpeed(bodyParts[body].rb.velocity.magnitude * 2.237f);
+            speedUI.fastestDog = this;
+            fastest = true;
+        }
+        // else if(!fastest)
+        // {
+        //     fastest = false;
+        // }
+
+        if(speedUI.fastestDog == this)
+        {
+            jersey.SetActive(true);
+        }
+        else
+        {
+            jersey.SetActive(false);
+        }
+
+
+        
         // print(bodyParts[body].rb.velocity.magnitude * 2.237);
 
         if(testJointRotation)
@@ -591,9 +628,20 @@ public class DogAgent : Agent {
     {
         //0.01f chosen via experimentation.
 		// facingDot = Vector3.Dot(dirToTarget.normalized, body.up);
+        // facingDotQuat = Quaternion.Dot(bodyParts[body].rb.rotation, Quaternion.LookRotation(dirToTarget));
         facingDot = Vector3.Dot(dirToTarget.normalized, body.up); //up is local forward because capsule is rotated
 
-        AddReward(0.01f * facingDot);
+        if(facingDot > .9f)
+        {
+            AddReward(0.01f);
+        }
+        // else
+        // {
+        //     AddReward(-0.01f);
+
+        // }
+        // AddReward(0.01f * facingDotQuat);
+        // AddReward(0.01f * facingDot);
     }
 
     //Time penalty - HURRY UP

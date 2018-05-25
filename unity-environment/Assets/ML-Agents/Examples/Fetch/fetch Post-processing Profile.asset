@@ -103,16 +103,16 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 21.8
+    value: 10
   brightness:
     overrideState: 1
-    value: 7
+    value: 0
   postExposure:
     overrideState: 1
     value: 0
   contrast:
     overrideState: 1
-    value: 15
+    value: 10
   mixerRedOutRedIn:
     overrideState: 1
     value: 100
@@ -142,10 +142,10 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.07501876}
+    value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 1, z: 1, w: 0.18754691}
   gain:
     overrideState: 1
     value: {x: 1, y: 1, z: 1, w: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.113636374
+          value: 0.06818181
           inSlope: 1
           outSlope: 1
           tangentMode: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
           outWeight: 0
         - serializedVersion: 3
           time: 1
-          value: 0.93636364
+          value: 0.94545454
           inSlope: 1
           outSlope: 1
           tangentMode: 0
@@ -298,7 +298,25 @@ MonoBehaviour:
     value:
       curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.013071896
+          value: 0.38181818
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.50108933
+          value: 0.5590909
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
