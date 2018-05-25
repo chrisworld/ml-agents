@@ -67,6 +67,8 @@ public class DogAgent : Agent {
     public Vector3 targetRotUpper;
     public Vector3 targetRotLower;
 
+    SpeedUI speedUI;
+
 //force = spring * (targetPosition - position) + damping * (targetVelocity - velocity)
 
 
@@ -204,6 +206,11 @@ public class DogAgent : Agent {
 		bodyParts[leg2_lower].rb.centerOfMass = footCenterOfMassShift;
 		bodyParts[leg3_lower].rb.centerOfMass = footCenterOfMassShift;
 		bodyParts[body].rb.centerOfMass = bodyCenterOfMassShift;
+    }
+
+    void Awake()
+    {
+        speedUI = FindObjectOfType<SpeedUI>();
     }
     //Initialize
     public override void InitializeAgent()
@@ -450,6 +457,9 @@ public class DogAgent : Agent {
 
 	public override void AgentAction(float[] vectorAction, string textAction)
     {
+        // print(bodyParts[body].rb.velocity.z);
+        speedUI.CollectSpeed(bodyParts[body].rb.velocity.magnitude * 2.237f);
+        // print(bodyParts[body].rb.velocity.magnitude * 2.237);
 
         if(testJointRotation)
         {
