@@ -9,6 +9,7 @@ public class DogAgent : Agent {
     [Header("Target To Walk Towards")] 
     [Space(10)] 
     public Transform target;
+    public Transform ground;
     public bool respawnTargetWhenTouched;
     public float targetSpawnRadius;
 
@@ -35,7 +36,9 @@ public class DogAgent : Agent {
 	public float maxJointForceLimit;
 	public Vector3 footCenterOfMassShift; //used to shift the centerOfMass on the feet so the agent isn't so top heavy
 	public Vector3 bodyCenterOfMassShift; //used to shift the centerOfMass on the feet so the agent isn't so top heavy
-	Vector3 dirToTarget;
+	public Vector3 dirToTarget;
+	public Vector3 dirToTargetNormalized;
+	public Vector3 bodyVelNormalized;
 	public float movingTowardsDot;
 	public float facingDot;
 	public float facingDotQuat;
@@ -72,6 +75,23 @@ public class DogAgent : Agent {
     public GameObject jersey;
     bool fastest;
 
+    public Transform orientationTransform;
+    public float closestDistanceToTargetSoFarSqrMag;
+
+
+    public float energyPenalty;
+    public float energyReward;
+    public float moveTowardsReward;
+    public float facingReward;
+    public float hurryUpReward;
+    public float reachedTargetReward;
+
+    public float totalReward;
+    public float agentReward;
+    public bool printRewardsToConsole;
+    public float maxTurnSpeed;
+    public ForceMode turningForceMode;
+    public float turnOffset;
 //force = spring * (targetPosition - position) + damping * (targetVelocity - velocity)
 
 
@@ -164,6 +184,7 @@ public class DogAgent : Agent {
             // var spring = Mathf.MoveTowards(previousSpringValue, (strength + 1f) * 0.5f, agent.maxJointStrengthChangePerDecision);
             var rawSpringVal = ((strength + 1f) * 0.5f) * agent.maxJointSpring;
             var clampedSpring = Mathf.MoveTowards(previousSpringValue, rawSpringVal, agent.maxJointStrengthChangePerDecision);
+            agent.energyPenalty += clampedSpring/agent.maxJointStrengthChangePerDecision;
             var jd = new JointDrive
             {
                 // positionSpring = ((strength + 1f) * 0.5f) * agent.maxJointSpring,
@@ -218,6 +239,8 @@ public class DogAgent : Agent {
 
     void Awake()
     {
+                closestDistanceToTargetSoFarSqrMag = 10000;
+
         bodyPartsList.Clear();
         speedUI = FindObjectOfType<SpeedUI>();
         jersey.SetActive(false);
@@ -249,20 +272,21 @@ public class DogAgent : Agent {
     // public void CollectObservationBodyPart(BodyPart bp)
     public void CollectObservationBodyPart(Transform bp)
     {
-        // ShiftCoM();
+        ShiftCoM();
         var rb = bodyParts[bp].rb;
         AddVectorObs(bodyParts[bp].groundContact.touchingGround ? 1 : 0); // Is this bp touching the ground
 
 
-        // if(bp.rb.transform != body)
-        // {
-        if(bp == leg0_upper || bp == leg1_upper || bp == leg2_upper || bp == leg3_upper )
+        if(bp != body)
         {
+        // if(bp == leg0_upper || bp == leg1_upper || bp == leg2_upper || bp == leg3_upper )
+        // {
             AddVectorObs(rb.velocity);
             AddVectorObs(rb.angularVelocity);
             // Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
             // AddVectorObs(localPosRelToBody);
-            AddVectorObs(Quaternion.FromToRotation(body.right, rb.transform.forward)); //-forward is local up because capsule is rotated
+            AddVectorObs(Quaternion.FromToRotation(body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
+            // AddVectorObs(Quaternion.FromToRotation(body.right, rb.transform.forward)); //-forward is local up because capsule is rotated
             // AddVectorObs(Quaternion.FromToRotation(-body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
         }
 
@@ -335,6 +359,7 @@ public class DogAgent : Agent {
 
                 //hit point position relative to the body's local space
                 relativeHitPos = body.InverseTransformPoint(hit.point); 
+                // relativeHitPos = body.InverseTransformPoint(hit.point); 
                 // print(hit.collider.gameObject.name);
             }
         }
@@ -347,7 +372,16 @@ public class DogAgent : Agent {
     public override void CollectObservations()
     {
         //normalize dir vector to help generalize
+        // AddVectorObs(dirToTarget);
         AddVectorObs(dirToTarget.normalized);
+        // AddVectorObs(body.InverseTransformPoint(target.position));
+        // AddVectorObs(ground.InverseTransformPoint(target.position));
+        // AddVectorObs(target.position - ground.position);
+        // AddVectorObs(bodyParts[body].rb.position - ground.position);
+        // AddVectorObs(ground.InverseTransformPoint(target.position).normalized);
+        // AddVectorObs(ground.InverseTransformPoint(bodyParts[body].rb.position).normalized);
+        // AddVectorObs(ground.InverseTransformPoint(bodyParts[body].rb.position));
+        // AddVectorObs(dirToTarget.normalized);
 
 
         AddVectorObs(bodyParts[body].rb.velocity);
@@ -362,8 +396,12 @@ public class DogAgent : Agent {
 
         //forward & up to help with orientation
         // AddVectorObs(-body.forward); //this is local up
+        AddVectorObs(body.forward); //the capsule is rotated so this is local forward
         AddVectorObs(body.up); //the capsule is rotated so this is local forward
-        AddVectorObs(Vector3.Dot(dirToTarget.normalized, body.up)); //the capsule is rotated so this is local forward
+        // AddVectorObs(Mathf.Clamp(Vector3.Dot(dirToTarget.normalized, orientationTransform.forward), 0, 1)); //the capsule is rotated so this is local forward
+        // AddVectorObs(Vector3.Dot(dirToTarget.normalized, body.up)); //the capsule is rotated so this is local forward
+        // AddVectorObs(Vector3.Dot(dirToTarget.normalized, orientationTransform.forward)); //the capsule is rotated so this is local forward
+        // AddVectorObs(Vector3.Dot(bodyParts[body].rb.velocity.normalized, dirToTarget.normalized)); //the capsule is rotated so this is local forward
 
 
         // AddVectorObs(body.rotation); //the capsule is rotated so this is local forward
@@ -399,7 +437,10 @@ public class DogAgent : Agent {
     /// </summary>
 	public void TouchedTarget(float impactForce)
 	{
-		AddReward(.01f * impactForce); //higher impact should be rewarded
+		// AddReward(.01f * impactForce); //higher impact should be rewarded
+		AddReward(1); //higher impact should be rewarded
+        reachedTargetReward+=1;
+        totalReward+=1;
         if(respawnTargetWhenTouched)
         {
 		    GetRandomTargetPos();
@@ -470,8 +511,34 @@ public class DogAgent : Agent {
         print(Quaternion.FromToRotation(bp.joint.axis, bp.joint.connectedBody.transform.rotation.eulerAngles).eulerAngles);
     }
 
+
+    // void RotateBody()
+    // {
+    //     //body rotation
+    //     var targetRot = Quaternion.LookRotation(dirToTarget); //dir to rotate
+    //     var newRot = Quaternion.Lerp(bodyParts[body].rb.rotation, targetRot, turnSpeed * Time.deltaTime); //lerp it so it's not dramatic
+    //     Vector3 rotDir = dirToTarget; 
+    //     rotDir.y = 0;
+    //     // bodyParts[body].rb.MoveRotation(newRot);
+    //     bodyParts[body].rb.AddForceAtPosition(rotDir.normalized * turnSpeed * Time.deltaTime, body.forward * turnOffset, turningForceMode); //tug on the front
+    //     bodyParts[body].rb.AddForceAtPosition(-rotDir.normalized * turnSpeed * Time.deltaTime, -body.forward * turnOffset, turningForceMode); //tug on the back
+    // }
+    void RotateBody(float act)
+    {
+        //body rotation
+        var targetRot = Quaternion.LookRotation(dirToTarget); //dir to rotate
+        float speed = Mathf.Lerp(0, maxTurnSpeed, Mathf.Clamp(act, 0, 1));
+        var newRot = Quaternion.Lerp(bodyParts[body].rb.rotation, targetRot, speed * Time.deltaTime); //lerp it so it's not dramatic
+        Vector3 rotDir = dirToTarget; 
+        rotDir.y = 0;
+        // bodyParts[body].rb.MoveRotation(newRot);
+        bodyParts[body].rb.AddForceAtPosition(rotDir.normalized * speed * Time.deltaTime, body.forward * turnOffset, turningForceMode); //tug on the front
+        bodyParts[body].rb.AddForceAtPosition(-rotDir.normalized * speed * Time.deltaTime, -body.forward * turnOffset, turningForceMode); //tug on the back
+    }
+
 	public override void AgentAction(float[] vectorAction, string textAction)
     {
+        agentReward = GetCumulativeReward();
         // print(bodyParts[body].rb.velocity.z);
         var speedMPH = bodyParts[body].rb.velocity.magnitude * 2.237f;
         if(speedMPH > speedUI.topSpeed)
@@ -479,6 +546,14 @@ public class DogAgent : Agent {
             speedUI.CollectSpeed(bodyParts[body].rb.velocity.magnitude * 2.237f);
             speedUI.fastestDog = this;
             fastest = true;
+        }
+
+        float dirSqr = dirToTarget.sqrMagnitude;
+        if(dirSqr < closestDistanceToTargetSoFarSqrMag)
+        {
+            // AddReward(0.01f * Mathf.Clamp(closestDistanceToTargetSoFarSqrMag - dirSqr, 0, 1));
+            closestDistanceToTargetSoFarSqrMag = dirSqr;
+
         }
         // else if(!fastest)
         // {
@@ -495,7 +570,10 @@ public class DogAgent : Agent {
         }
 
 
-        
+
+
+
+
         // print(bodyParts[body].rb.velocity.magnitude * 2.237);
 
         if(testJointRotation)
@@ -519,6 +597,10 @@ public class DogAgent : Agent {
         // GetAvgCenterOfMassForAllRBs();
         //update pos to target
 		dirToTarget = target.position - bodyParts[body].rb.position;
+        dirToTargetNormalized = dirToTarget.normalized;
+        bodyVelNormalized = bodyParts[body].rb.velocity.normalized;
+
+        
 
         //if enabled the feet will light up green when the foot is grounded.
         //this is just a visualization and isn't necessary for function
@@ -568,8 +650,16 @@ public class DogAgent : Agent {
             // bodyParts[leg2_lower].UpdateJointDrive(vectorAction[18]);
             // bodyParts[leg3_lower].UpdateJointDrive(vectorAction[19]);
 
+            RotateBody(vectorAction[12]);
 
-
+        // var energyPenalty = -.0001f * Mathf.Abs(vectorAction[8] + vectorAction[9] + vectorAction[10] + vectorAction[11]);
+        // var energyPenalty = -.0001f * Mathf.Abs(vectorAction[8] + vectorAction[9] + vectorAction[10] + vectorAction[11]);
+        var jointStrengthPenalty = -.0000001f * energyPenalty;//joint strength
+        var bodyRotationPenalty = -.001f * vectorAction[12]; //rotation strength
+        energyReward += jointStrengthPenalty + bodyRotationPenalty;
+        totalReward += energyReward;
+        // AddReward(-.0000001f * energyPenalty);
+        AddReward(jointStrengthPenalty + bodyRotationPenalty);
 
 
         // if(isNewDecisionStep)
@@ -609,9 +699,13 @@ public class DogAgent : Agent {
 
         // Set reward for this step according to mixture of the following elements.
         if(rewardMovingTowardsTarget){RewardFunctionMovingTowards();}
-        if(rewardFacingTarget){RewardFunctionFacingTarget();}
+        // if(rewardFacingTarget){RewardFunctionFacingTarget();}
         if(rewardUseTimePenalty){RewardFunctionTimePenalty();}
         IncrementDecisionTimer();
+        // if(printRewardsToConsole)
+        // {
+        //     PrintRewards();
+        // }
     }
 	
     //Reward moving towards target & Penalize moving away from target.
@@ -619,8 +713,33 @@ public class DogAgent : Agent {
     {
         //don't normalize vel. the faster it goes the more reward it should get
         //0.03f chosen via experimentation
-		movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized); 
-        AddReward(0.03f * movingTowardsDot);
+		movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity.normalized, dirToTarget.normalized); 
+		// movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized); 
+        // movingTowardsDot = Mathf.Clamp(movingTowardsDot, -5, 50f);
+        // movingTowardsDot = Mathf.Clamp(movingTowardsDot, -5, 50f);
+
+        // AddReward(0.0003f * movingTowardsDot);
+        moveTowardsReward += 0.01f * movingTowardsDot;
+        // moveTowardsReward += 0.003f * movingTowardsDot;
+        totalReward += moveTowardsReward;
+        AddReward(0.01f * movingTowardsDot);
+        // AddReward(0.003f * movingTowardsDot);
+        // AddReward(0.03f * movingTowardsDot);
+
+        if(rewardFacingTarget)
+        {
+            // movingTowardsDot = Vector3.Dot(bodyParts[body].rb.velocity, dirToTarget.normalized); 
+            facingDot = Vector3.Dot(dirToTarget.normalized, body.forward); //up is local forward because capsule is rotated
+            if(movingTowardsDot > .8f)
+            {
+                facingDot = Mathf.Clamp(facingDot, 0, 1f);
+                facingReward += 0.001f * facingDot;
+                totalReward += facingReward;
+                AddReward(0.001f * facingDot);
+            }
+
+        }
+
     }
 
     //Reward facing target & Penalize facing away from target
@@ -629,26 +748,46 @@ public class DogAgent : Agent {
         //0.01f chosen via experimentation.
 		// facingDot = Vector3.Dot(dirToTarget.normalized, body.up);
         // facingDotQuat = Quaternion.Dot(bodyParts[body].rb.rotation, Quaternion.LookRotation(dirToTarget));
-        facingDot = Vector3.Dot(dirToTarget.normalized, body.up); //up is local forward because capsule is rotated
-
-        if(facingDot > .9f)
-        {
-            AddReward(0.01f);
-        }
+        // facingDot = Vector3.Dot(dirToTarget.normalized, body.up); //up is local forward because capsule is rotated
+        facingDot = Vector3.Dot(dirToTarget.normalized, body.forward); //up is local forward because capsule is rotated
+        facingDot = Mathf.Clamp(facingDot, 0, 1f);
+        // facingDot = Vector3.Dot(bodyParts[body].rb.velocity.normalized, body.up); //up is local forward because capsule is rotated
+        // Debug.DrawRay(orientationTransform.position, dirToTarget.normalized, Color.red, .01f);
+        // Debug.DrawRay(orientationTransform.position, orientationTransform.forward, Color.green, .01f);
+        // if(facingDot > .9f)
+        // {
+        //     AddReward(0.01f);
+        // }
         // else
         // {
         //     AddReward(-0.01f);
 
         // }
         // AddReward(0.01f * facingDotQuat);
-        // AddReward(0.01f * facingDot);
+        // AddReward(0.03f * facingDot);
+        facingReward += 0.001f * facingDot;
+        totalReward += facingReward;
+        AddReward(0.001f * facingDot);
     }
 
     //Time penalty - HURRY UP
     void RewardFunctionTimePenalty()
     {
         //0.001f chosen by experimentation. If this penalty is too high it will kill itself :(
+        hurryUpReward += -.001f;
+        totalReward += hurryUpReward;
         AddReward(- 0.001f); 
+        // AddReward(- 0.001f); 
+    }
+    
+    void PrintRewards()
+    {
+        print("Rewards: " + 
+        " Energy: " + energyReward +
+        " MoveTowards: " + moveTowardsReward +
+        " Facing: " + facingReward +
+        " Hurry: " + "-.001f"
+        );
     }
 
 	/// <summary>
@@ -656,10 +795,10 @@ public class DogAgent : Agent {
     /// </summary>
     public override void AgentReset()
     {
-        if(dirToTarget != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(dirToTarget);
-        }
+        // if(dirToTarget != Vector3.zero)
+        // {
+        //     transform.rotation = Quaternion.LookRotation(dirToTarget);
+        // }
         
         foreach (var bodyPart in bodyParts.Values)
         {
@@ -667,6 +806,14 @@ public class DogAgent : Agent {
         }
         currentAgentStep = 1;
         isNewDecisionStep = true;
+        closestDistanceToTargetSoFarSqrMag = 10000;
+        energyReward = 0;
+        moveTowardsReward = 0;
+        facingReward = 0;
+        hurryUpReward = 0;
+        totalReward = 0;
+        reachedTargetReward = 0;
+        energyPenalty = 0;
     }
 
 
