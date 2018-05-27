@@ -634,10 +634,10 @@ public class DogAgent : Agent {
             bodyParts[leg1_upper].SetNormalizedTargetRotation(vectorAction[2], vectorAction[3], 0);
             bodyParts[leg2_upper].SetNormalizedTargetRotation(vectorAction[4], vectorAction[5], 0);
             bodyParts[leg3_upper].SetNormalizedTargetRotation(vectorAction[6], vectorAction[7], 0);
-            // bodyParts[leg0_lower].SetNormalizedTargetRotation(vectorAction[8], 0, 0);
-            // bodyParts[leg1_lower].SetNormalizedTargetRotation(vectorAction[9], 0, 0);
-            // bodyParts[leg2_lower].SetNormalizedTargetRotation(vectorAction[10], 0, 0);
-            // bodyParts[leg3_lower].SetNormalizedTargetRotation(vectorAction[11], 0, 0);
+            bodyParts[leg0_lower].SetNormalizedTargetRotation(vectorAction[8], 0, 0);
+            bodyParts[leg1_lower].SetNormalizedTargetRotation(vectorAction[9], 0, 0);
+            bodyParts[leg2_lower].SetNormalizedTargetRotation(vectorAction[19], 0, 0);
+            bodyParts[leg3_lower].SetNormalizedTargetRotation(vectorAction[20], 0, 0);
         }
 
             //update joint drive settings
@@ -645,12 +645,12 @@ public class DogAgent : Agent {
             bodyParts[leg1_upper].UpdateJointDrive(vectorAction[9]);
             bodyParts[leg2_upper].UpdateJointDrive(vectorAction[10]);
             bodyParts[leg3_upper].UpdateJointDrive(vectorAction[11]);
-            // bodyParts[leg0_lower].UpdateJointDrive(vectorAction[16]);
-            // bodyParts[leg1_lower].UpdateJointDrive(vectorAction[17]);
-            // bodyParts[leg2_lower].UpdateJointDrive(vectorAction[18]);
-            // bodyParts[leg3_lower].UpdateJointDrive(vectorAction[19]);
+            bodyParts[leg0_lower].UpdateJointDrive(vectorAction[17]);
+            bodyParts[leg1_lower].UpdateJointDrive(vectorAction[18]);
+            bodyParts[leg2_lower].UpdateJointDrive(vectorAction[14]);
+            bodyParts[leg3_lower].UpdateJointDrive(vectorAction[15]);
 
-            RotateBody(vectorAction[12]);
+            RotateBody(vectorAction[16]);
 
         // var energyPenalty = -.0001f * Mathf.Abs(vectorAction[8] + vectorAction[9] + vectorAction[10] + vectorAction[11]);
         // var energyPenalty = -.0001f * Mathf.Abs(vectorAction[8] + vectorAction[9] + vectorAction[10] + vectorAction[11]);
