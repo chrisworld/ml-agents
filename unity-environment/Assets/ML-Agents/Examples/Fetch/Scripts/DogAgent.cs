@@ -285,7 +285,8 @@ public class DogAgent : Agent {
             AddVectorObs(rb.angularVelocity);
             // Vector3 localPosRelToBody = body.InverseTransformPoint(rb.position);
             // AddVectorObs(localPosRelToBody);
-            AddVectorObs(Quaternion.FromToRotation(body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
+            // AddVectorObs(Quaternion.FromToRotation(body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
+            AddVectorObs(Quaternion.FromToRotation(bodyParts[bp].joint.connectedBody.transform.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
             // AddVectorObs(Quaternion.FromToRotation(body.right, rb.transform.forward)); //-forward is local up because capsule is rotated
             // AddVectorObs(Quaternion.FromToRotation(-body.forward, rb.transform.forward)); //-forward is local up because capsule is rotated
         }
@@ -654,12 +655,23 @@ public class DogAgent : Agent {
 
         // var energyPenalty = -.0001f * Mathf.Abs(vectorAction[8] + vectorAction[9] + vectorAction[10] + vectorAction[11]);
         // var energyPenalty = -.0001f * Mathf.Abs(vectorAction[8] + vectorAction[9] + vectorAction[10] + vectorAction[11]);
-        var jointStrengthPenalty = -.0000001f * energyPenalty;//joint strength
+
+
+
+
         var bodyRotationPenalty = -.001f * vectorAction[12]; //rotation strength
-        energyReward += jointStrengthPenalty + bodyRotationPenalty;
-        totalReward += energyReward;
+        AddReward(bodyRotationPenalty);
         // AddReward(-.0000001f * energyPenalty);
-        AddReward(jointStrengthPenalty + bodyRotationPenalty);
+        // AddReward(jointStrengthPenalty + bodyRotationPenalty);
+        // var jointStrengthPenalty = -.0000001f * energyPenalty;//joint strength
+        // AddReward(jointStrengthPenalty);
+
+        // energyReward += jointStrengthPenalty + bodyRotationPenalty;
+        // totalReward += energyReward;
+
+
+
+
 
 
         // if(isNewDecisionStep)

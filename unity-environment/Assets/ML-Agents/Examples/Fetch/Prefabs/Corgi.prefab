@@ -1736,9 +1736,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1044349968311420}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1.0000004, z: 1.0000004}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5816231, z: -8.443502}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4959837446153166}
   - {fileID: 4855701434751996}
@@ -5759,9 +5759,9 @@ MonoBehaviour:
     agent: {fileID: 114477144195114278}
     previousJointRotation: {x: 0, y: 0, z: 0}
     previousSpringValue: 659.9474
-  maxJointSpring: 5000
+  maxJointSpring: 4000
   jointDampen: 0
-  maxJointForceLimit: 800
+  maxJointForceLimit: 4000
   footCenterOfMassShift: {x: 0, y: 0, z: 0}
   bodyCenterOfMassShift: {x: 0, y: 0, z: 0}
   dirToTarget: {x: 0, y: 0, z: 0}
@@ -5782,7 +5782,7 @@ MonoBehaviour:
   unGroundedMaterial: {fileID: 2100000, guid: ee5cbef904f50490494fa32532f6e257, type: 2}
   isNewDecisionStep: 1
   currentAgentStep: 1
-  maxJointAngleChangePerDecision: 45
+  maxJointAngleChangePerDecision: 99
   maxJointStrengthChangePerDecision: 4500
   testJointRotation: 0
   targetRotUpper: {x: 0, y: 0, z: 0}
@@ -6542,7 +6542,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.15445003, y: 0.65194154, z: -0.041353244}
+  m_ConnectedAnchor: {x: 0.15445049, y: 0.65194136, z: -0.041353375}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -6636,7 +6636,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.18100554, y: 0.06679211, z: -0.33725184}
+  m_ConnectedAnchor: {x: -0.18100554, y: 0.06679213, z: -0.33725166}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -6656,18 +6656,18 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -60
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 10
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 75
+    limit: 120
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -6824,7 +6824,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.1813345, y: 0.06680045, z: -0.33745044}
+  m_ConnectedAnchor: {x: 0.1813345, y: 0.066800475, z: -0.33745003}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -6844,18 +6844,18 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -60
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 10
+    limit: 0
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 75
+    limit: 120
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -6918,7 +6918,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.73, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000029276073, y: 0.15120488, z: -0.40210208}
+  m_ConnectedAnchor: {x: 0.0000000029276073, y: 0.15120494, z: -0.40210247}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -7012,7 +7012,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.12484675, y: 0.4870696, z: 0.0326878}
+  m_ConnectedAnchor: {x: -0.12484562, y: 0.4870698, z: 0.0326878}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -7106,7 +7106,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.1621813, y: -0.0072355242, z: 0.34545738}
+  m_ConnectedAnchor: {x: 0.1621813, y: -0.007235527, z: 0.34545708}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -7126,7 +7126,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -60
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
@@ -7137,7 +7137,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 90
+    limit: 120
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -7200,7 +7200,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.15458623, y: 0.6516186, z: -0.04145201}
+  m_ConnectedAnchor: {x: -0.1545873, y: 0.6516184, z: -0.041452296}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -7294,7 +7294,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.12533313, y: 0.48666182, z: 0.035894252}
+  m_ConnectedAnchor: {x: 0.12533496, y: 0.4866614, z: 0.035894252}
   serializedVersion: 2
   m_SecondaryAxis: {x: -1, y: 0, z: 0}
   m_XMotion: 0
@@ -7388,7 +7388,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: -0.25}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000012460523, y: 0.22374754, z: 0.4220348}
+  m_ConnectedAnchor: {x: 0.000000012460523, y: 0.22374761, z: 0.42203522}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -7482,7 +7482,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.16184877, y: -0.007187006, z: 0.34565118}
+  m_ConnectedAnchor: {x: -0.16184877, y: -0.007187009, z: 0.34565163}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -7502,7 +7502,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -60
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
@@ -7513,7 +7513,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 90
+    limit: 120
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:

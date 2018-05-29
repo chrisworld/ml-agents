@@ -23,8 +23,9 @@ public class DogContact : MonoBehaviour
     void Start()
     {
         agent = transform.root.GetComponent<DogAgent>();
-        Physics.defaultSolverIterations = 6; //increasing this to increase solver accuracy
-        Physics.defaultSolverVelocityIterations = 6; //increasing this to increase solver accuracy
+        agent = transform.parent.GetComponent<DogAgent>();
+        // Physics.defaultSolverIterations = 6; //increasing this to increase solver accuracy
+        // Physics.defaultSolverVelocityIterations = 6; //increasing this to increase solver accuracy
     }
 
     /// <summary>
